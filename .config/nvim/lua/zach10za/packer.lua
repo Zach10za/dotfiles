@@ -38,6 +38,7 @@ return require('packer').startup(function(use)
     use({"lukas-reineke/indent-blankline.nvim"})
 
     use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
+    use('nvim-treesitter/playground')
 
     use('nvim-lua/plenary.nvim')
     use('ThePrimeagen/harpoon')
@@ -89,33 +90,12 @@ return require('packer').startup(function(use)
             require("nvim-surround").setup({})
         end
     })
+    
+    -- Split single line arguments into multiple lines.
+    use({'FooSoft/vim-argwrap'})
 
     -- Github Copilot
-    use({
-        'zbirenbaum/copilot.lua',
-        cmd = "Copilot",
-        event = "InsertEnter",
-        config = function ()
-            require('copilot').setup({
-                suggestion = {
-                    enabled = true,
-                },
-                panel = {
-                    enabled = true,
-                },
-                filetypes = {
-                    python = true,
-                },
-            })
-        end,
-    })
-    -- use({
-    --     "zbirenbaum/copilot-cmp",
-    --     after = { "copilot.lua" },
-    --     config = function()
-    --         require('copilot_cmp').setup()
-    --     end,
-    -- })
+    use({'github/copilot.vim'})
 
     -- Note taking.
     use({
@@ -160,6 +140,9 @@ return require('packer').startup(function(use)
 
     -- Random
     use({'ThePrimeagen/vim-be-good'})
+
+    -- Local plugins in development
+    use '~/Projects/call-hierarchy'
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins

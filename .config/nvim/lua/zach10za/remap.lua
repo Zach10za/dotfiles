@@ -24,7 +24,8 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 vim.keymap.set("n", "Q", "<nop>")
 
 -- Replace all instances of highlighted value
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set("n", "<leader>s", [[:%s/<C-r><C-w>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set("v", "<leader>s", [[y:%s/<C-r><C-">/<C-r><C-">/gI<Left><Left><Left>]])
 
 -- Delete into void.
 vim.keymap.set({"n", "v"}, "<leader>d", [[\"_d]])
@@ -34,4 +35,15 @@ vim.keymap.set("n", "O", "o<esc>")
 
 -- Expand parenthesis.
 vim.keymap.set("n", "<leader>x", "f(a<enter><enter><esc>ki<tab>")
+
+-- Split navigation.
+vim.keymap.set("n", "<leader>v", "<C-w>v<C-w>l")
+vim.keymap.set("n", "<leader>h", "<C-w>h")
+vim.keymap.set("n", "<leader>j", "<C-w>j")
+vim.keymap.set("n", "<leader>k", "<C-w>k")
+vim.keymap.set("n", "<leader>l", "<C-w>l")
+
+-- Set :W to save because I accidentally type this 100 times a day.
+vim.keymap.set("n", ":W", ":w")
+vim.keymap.set("n", ":Q", ":q")
 

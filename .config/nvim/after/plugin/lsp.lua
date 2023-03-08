@@ -4,7 +4,7 @@ local lsp = require('lsp-zero')
 lsp.preset('recommended')
 
 lsp.ensure_installed({
-	'sumneko_lua',
+	-- 'sumneko_lua',
     'ruff_lsp',
 })
 
@@ -23,11 +23,17 @@ lsp.configure('sumneko_lua', {
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
 local cmp_mappings = lsp.defaults.cmp_mappings({
-	['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-	['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-	['<C-y>'] = cmp.mapping.confirm({ select = true }),
-	['<C-Space>'] = cmp.mapping.complete(),
+	['<C-k>'] = cmp.mapping.select_prev_item(cmp_select),
+	['<C-j>'] = cmp.mapping.select_next_item(cmp_select),
+	['<C-space>'] = cmp.mapping.confirm({ select = true }),
+	-- ['<C-space>'] = cmp.mapping.complete(),
 })
+
+-- disable completion with tab
+-- this helps with copilot setup
+cmp_mappings['<Tab>'] = nil
+cmp_mappings['<S-Tab>'] = nil
+cmp_mappings['<CR>'] = nil
 
 lsp.setup_nvim_cmp({
   mapping = cmp_mappings
@@ -74,6 +80,16 @@ lsp.setup({
 -- Setup Ruff (Python language server)
 require'lspconfig'.ruff_lsp.setup {
     on_attach = on_attach,
+}
+
+-- Setup Jedi (Python language server)
+require'lspconfig'.jedi_language_server.setup {
+    init_options = {
+        completion = {
+            -- Do not automatically insert arguments when completing function.
+            placeholder = false,
+        },
+    },
 }
 
 -- Set diagnostic settings.
