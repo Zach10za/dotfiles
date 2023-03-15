@@ -26,23 +26,12 @@ return require('packer').startup(function(use)
     -- FZF (much better than Telescope)
     use({'ibhagwan/fzf-lua'})
 
-    -- Clipboard manager
-    use({
-        "AckslD/nvim-neoclip.lua",
-        requires = {
-            {'kkharji/sqlite.lua', module = 'sqlite'},
-            {'ibhagwan/fzf-lua'},
-        },
-    })
-
     use({"lukas-reineke/indent-blankline.nvim"})
 
     use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
     use('nvim-treesitter/playground')
 
     use('nvim-lua/plenary.nvim')
-    use('ThePrimeagen/harpoon')
-    use('mbbill/undotree')
     use('tpope/vim-fugitive')
 
     -- Status bar
@@ -90,9 +79,24 @@ return require('packer').startup(function(use)
             require("nvim-surround").setup({})
         end
     })
-    
+
     -- Split single line arguments into multiple lines.
-    use({'FooSoft/vim-argwrap'})
+    use({
+        'Wansmer/treesj',
+        requires = {'nvim-treesitter'},
+        config = function()
+            require('treesj').setup()
+        end
+    })
+
+    -- Per-repo settings
+    use({'editorconfig/editorconfig-vim'})
+
+    -- Adds comment abilit
+    use({'terrortylor/nvim-comment'})
+
+    -- Highlight f/F jumps
+    use({'jinh0/eyeliner.nvim'})
 
     -- Github Copilot
     use({'github/copilot.vim'})
@@ -104,14 +108,6 @@ return require('packer').startup(function(use)
         config = function()
             require('mind').setup()
         end
-    })
-
-    -- Navigate buffer with 2 characters.
-    use({
-        'ggandor/leap.nvim',
-        config = function()
-            require('leap').add_default_mappings()
-        end,
     })
 
     -- Keyboard shortcuts helper.
@@ -140,9 +136,6 @@ return require('packer').startup(function(use)
 
     -- Random
     use({'ThePrimeagen/vim-be-good'})
-
-    -- Local plugins in development
-    use '~/Projects/call-hierarchy'
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
